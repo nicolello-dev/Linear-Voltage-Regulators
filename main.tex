@@ -1,0 +1,105 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\geometry{margin=1in}
+
+\graphicspath{{figures}}
+
+\begin{document}
+
+% ---------- FIRST PAGE (TITLE PAGE) ----------
+\begin{titlepage}
+\centering
+\vspace*{3cm}
+
+\begingroup
+\setstretch{1.8}
+{\LARGE \textbf{Electronic Devices and Circuits - Laboratory}}\\[3cm]
+\endgroup
+
+{\Large Ex. 8: Linear Voltage Regulators}\\[4cm]
+
+\begin{flushleft}
+\hspace{2.5cm}
+\begin{tabular}{l}
+\textbf{} \\[1cm]
+Mariana Shapovalova\\
+Miguel Fernandes\\
+Nicola Migone
+\end{tabular}
+\end{flushleft}
+
+\vfill
+
+\textbf{Exercise performed on 4.12.2025}
+
+\end{titlepage}
+
+\tableofcontents
+
+% ---------- SECOND PAGE BEGINS ----------
+\section{Aim}
+// TODO
+\clearpage
+\section{Measurement Schemes}
+\begin{figure}[h]
+    \centering
+    \includegraphics{fig1.png}
+    \caption{Measurement scheme used to measure characteristics of the bipolar
+transistor}
+\end{figure}
+
+In order to measure the transistor saturation characteristics, we have used the circuit below, in which $I_B$ was varied and we observed the voltage between the collector and emitter pins
+
+\begin{figure}[h]
+    \centering
+    \includegraphics{fig1.png}
+    \caption{Measurement scheme used to measure saturation characteristics}
+\end{figure}
+
+\clearpage
+
+\section{Results}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{main_graph}
+    \caption{Transistor characteristics chart}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1\textwidth]{saturation}
+    \caption{Transistor saturation characteristics chart}
+\end{figure}
+
+\section{Calculations}
+
+Taking into account $U_{CE}=4\,\text{V}$ and $I_C=I_B=15\,\mu\text{A}$:
+\begin{align}
+    h_{11} &= \frac{\Delta U_{BE}}{\Delta I_B} \big|_{U_{CE}=4\,\text{V}} \\
+    \Delta I_B &= 19.89 - 9.96 = 9.13\,\mu\text{A} \\
+    \Delta U_{BE} &= 0.622 - 0.603 = 19\,\text{mV} \\
+    h_{11} &= \frac{19\,\text{mV}}{9.13\,\mu\text{A}} = 2.08\,\text{k}\Omega
+\end{align}
+
+In reverse characteristics:
+
+$$h_{12}=\frac{\Delta U_{BE}}{\Delta U_{CE}}\big|_{I_B=15\mu A}=\frac{0.611-0.614}{10-0.3}=-0.0003$$
+
+Transfer characteristics:
+
+$$h_{21}=\frac{\Delta I_C}{\Delta I_B}\big|_{U_{CE}=4V}=\frac{2.55-1.207}{19.89-9.96}=\frac{1.343mA}{9.13\mu A}=135.24$$
+
+Output characteristics:
+
+$$h_{22}=\frac{\Delta I_C}{\Delta U_{CE}}\big|_{I_B=15\mu A} = \frac{(1.909-1.9)\cdot 10^{-3}}{5-3}=4.5\mu S$$
+
+$$u_{in}=u_{BE}=2.08k\Omega\cdot 9.13[\mu A]-0.000309\cdot 4=0.0178V$$
+
+$$i_{out}=i_C=h_21$$
+
+\end{document}
