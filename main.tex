@@ -4,6 +4,8 @@
 \usepackage{setspace}
 \usepackage{graphicx}
 \usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{float}
 \geometry{margin=1in}
 
 \graphicspath{{figures}}
@@ -25,7 +27,7 @@
 \begin{flushleft}
 \hspace{2.5cm}
 \begin{tabular}{l}
-\textbf{} \\[1cm]
+\textbf{Group 2} \\[1cm]
 Mariana Shapovalova\\
 Miguel Fernandes\\
 Nicola Migone
@@ -34,72 +36,201 @@ Nicola Migone
 
 \vfill
 
-\textbf{Exercise performed on 4.12.2025}
+\textbf{Exercise performed on 29.11.2025}
 
 \end{titlepage}
 
 \tableofcontents
 
 % ---------- SECOND PAGE BEGINS ----------
-\section{Aim}
-// TODO
+\section{Introduction}
+
+A voltage regulator is a device that generates a constant output voltage ($U_{OUT}$) at a desired level, maintaining stability regardless of variations in its input voltage ($U_{IN}$), load current, or temperature. This experiment focuses exclusively on Linear Voltage Regulators (LVRs).
+
+The objective of this laboratory exercise is to become familiar with the structure and operating principles of three different LVRs and to measure their basic performance parameters. These parameters quantify the regulator's ability to maintain a stable output:
+
+\begin{itemize}
+    \item \textbf{Line Regulation ($\text{RegLine}$):} Measures the change in $U_{OUT}$ due to a change in $U_{IN}$.
+    \item \textbf{Load Regulation ($\text{RegLoad}$):} Measures the change in $U_{OUT}$ due to a change in the load current ($I_{OUT}$).
+    \item \textbf{Ripple Rejection Ratio ($\text{RR}$):} Measures the efficiency of the regulator in suppressing the AC ripple present at the input.
+\end{itemize}
+
+The three circuits analyzed represent a progression in complexity and performance:
+\begin{enumerate}
+    \item LVR1: Zener diode regulator.
+    \item LVR2: Zener diode regulator with current source.
+    \item LVR5: IC-type voltage regulator (LM7805).
+\end{enumerate}
+
+\section{Data}
+
+The data gathered for this report can be viewed at \href{https://github.com/nicolello-dev/Linear-Voltage-Regulators/plotter.m}{https://github.com/nicolello-dev/Linear-Voltage-Regulators/plotter.m}
+
+Ripple Rejection Ratio data is as follows:
+
+\begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
+ \hline
+ \multicolumn{4}{|c|}{Ripple Rejection Data} \\
+ \hline
+ LVRs&LVR1&LVR2&LVR5\\
+ \hline
+ $U_{in}$   &2.14V&2.24V&2.24V\\
+ $U_{out}$&0.0426V&0.01224V&0.001V\\
+ \hline
+\end{tabular}
+
 \clearpage
-\section{Measurement Schemes}
-\begin{figure}[h]
+
+\section{Graphs}
+
+\begin{figure}[H]
     \centering
-    \includegraphics{fig1.png}
-    \caption{Measurement scheme used to measure characteristics of the bipolar
-transistor}
+    \includegraphics[width=1\textwidth]{figures/transfer.png}
+    \caption{Transfer characteristics for examined LVRs}
 \end{figure}
 
-In order to measure the transistor saturation characteristics, we have used the circuit below, in which $I_B$ was varied and we observed the voltage between the collector and emitter pins
-
-\begin{figure}[h]
+\begin{figure}[H]
     \centering
-    \includegraphics{fig1.png}
-    \caption{Measurement scheme used to measure saturation characteristics}
-\end{figure}
-
-\clearpage
-
-\section{Results}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1\textwidth]{main_graph}
-    \caption{Transistor characteristics chart}
-\end{figure}
-
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=1\textwidth]{saturation}
-    \caption{Transistor saturation characteristics chart}
+    \includegraphics[width=1\textwidth]{figures/output.png}
+    \caption{Output characteristics for examined LVRs}
 \end{figure}
 
 \section{Calculations}
 
-Taking into account $U_{CE}=4\,\text{V}$ and $I_C=I_B=15\,\mu\text{A}$:
+\subsection{Nominal Output Voltage} \label{sub:nominal_output_voltage}
+
+To calculate the nominal output voltage, we can use the formula
+
+$$U_{out, nominal}=\frac{U_{out, no\ load}+U_{out, 30mA}}{2} [V]$$
+
+Our data yield the following:
+
+$$U_{out, n., \text{LVR1}}=\frac{5.60 + 5.54}{2} = 5.57\ [V]$$
+$$U_{out, n., \text{LVR2}}=\frac{5.54 + 5.46}{2} = 5.5\ [V]$$
+$$U_{out, n., \text{LVR5}}=\frac{5.05 + 5.05}{2} = 5.05\ [V]$$
+
+\subsection{RegLine}
+
+RegLine has five equations that we may use:
+
 \begin{align}
-    h_{11} &= \frac{\Delta U_{BE}}{\Delta I_B} \big|_{U_{CE}=4\,\text{V}} \\
-    \Delta I_B &= 19.89 - 9.96 = 9.13\,\mu\text{A} \\
-    \Delta U_{BE} &= 0.622 - 0.603 = 19\,\text{mV} \\
-    h_{11} &= \frac{19\,\text{mV}}{9.13\,\mu\text{A}} = 2.08\,\text{k}\Omega
+\text{RegLine}&=\frac{\Delta U_{out}}{\Delta U_{in}} \label{eq:RegLine1} \\
+\text{RegLine}&=\frac{\Delta U_{out}}{\Delta U_{in}}\cdot100\% \label{eq:RegLine2} \\
+\text{RegLine}&=\frac{\Delta U_{out}}{U_{out}} \label{eq:RegLine3} \\
+\text{RegLine}&=\frac{\Delta U_{out}}{U_{out}}\cdot100\% \label{eq:RegLine4} \\
+\text{RegLine}&=\frac{\frac{\Delta U_{out}}{U_{out}}}{\Delta U_{in}} \label{eq:RegLine5}
 \end{align}
 
-In reverse characteristics:
+For the purposes of this laboratory, we will use the definitions \ref{eq:RegLine2}, \ref{eq:RegLine4}, and \ref{eq:RegLine5}. We will also assume the input voltage range $U_{in}=8V\ldots12V$, load current $I_L=0A$, $U_{out}$ as the nominal output voltage calculated in section \ref{sub:nominal_output_voltage}.
 
-$$h_{12}=\frac{\Delta U_{BE}}{\Delta U_{CE}}\big|_{I_B=15\mu A}=\frac{0.611-0.614}{10-0.3}=-0.0003$$
+\subsubsection{LVR1}
 
-Transfer characteristics:
+Using the definition \ref{eq:RegLine2} returns
 
-$$h_{21}=\frac{\Delta I_C}{\Delta I_B}\big|_{U_{CE}=4V}=\frac{2.55-1.207}{19.89-9.96}=\frac{1.343mA}{9.13\mu A}=135.24$$
+$$\text{RegLine}=\frac{\Delta U_{out}}{\Delta U_{in}}\cdot100\%=\frac{5.64-5.55}{12-8}\cdot100\%=0.02\%$$
 
-Output characteristics:
+With \ref{eq:RegLine4},
 
-$$h_{22}=\frac{\Delta I_C}{\Delta U_{CE}}\big|_{I_B=15\mu A} = \frac{(1.909-1.9)\cdot 10^{-3}}{5-3}=4.5\mu S$$
+$$\text{RegLine}=\frac{\Delta U_{out}}{U_{out}}\cdot100\%=\frac{5.64-5.55}{5.57}\cdot100\%\approx0\%$$
 
-$$u_{in}=u_{BE}=2.08k\Omega\cdot 9.13[\mu A]-0.000309\cdot 4=0.0178V$$
+And \ref{eq:RegLine5},
 
-$$i_{out}=i_C=h_21$$
+$$\text{RegLine}=\frac{\frac{\Delta U_{out}}{U_{out}}}{\Delta U_{in}}\approx\frac{0}{4}=0$$.
+
+\subsubsection{LVR2}
+
+Using the definition \ref{eq:RegLine2} returns
+
+$$\text{RegLine}=\frac{\Delta U_{out}}{\Delta U_{in}}\cdot100\%=\frac{5.54-5.54}{12-8}\cdot100\%=0\%$$
+
+With \ref{eq:RegLine4},
+
+$$\text{RegLine}=\frac{\Delta U_{out}}{U_{out}}\cdot100\%=\frac{5.54-5.54}{5.57}\cdot100\%=0\%$$
+
+And \ref{eq:RegLine5},
+
+$$\text{RegLine}=\frac{\frac{\Delta U_{out}}{U_{out}}}{\Delta U_{in}}=\frac{0}{4}=0$$.
+
+\subsubsection{LVR5}
+
+Using the definition \ref{eq:RegLine2} returns
+
+$$\text{RegLine}=\frac{\Delta U_{out}}{\Delta U_{in}}\cdot100\%=\frac{5.05-5.05}{12-8}\cdot100\%=0\%$$
+
+With \ref{eq:RegLine4},
+
+$$\text{RegLine}=\frac{\Delta U_{out}}{U_{out}}\cdot100\%=\frac{5.05-5.05}{5.57}\cdot100\%=0\%$$
+
+And \ref{eq:RegLine5},
+
+$$\text{RegLine}=\frac{\frac{\Delta U_{out}}{U_{out}}}{\Delta U_{in}}=\frac{0}{4}=0$$.
+
+\subsection{RegLoad}
+
+RegLoad can be calculated using three different equations:
+
+\begin{align}
+\text{RegLoad}&=\frac{\Delta U_{out}}{\Delta I_{out}} \label{eq:RegLoad1} \\
+\text{RegLoad}&=\frac{\frac{\Delta U_{out}}{U_{out}}}{\Delta I_{out}}\cdot100\% \label{eq:RegLoad2} \\
+\text{RegLoad}&=\frac{\Delta U_{out}}{U_{out}}\cdot100\% \label{eq:RegLoad3}
+\end{align}
+
+We will assume the input voltage range to be $I_{L}=0mA\ldots30mA$ for LVR1 and LVR2 and $I_{L}=0mA\ldots300mA$ for LVR5; We will also assume $U_{out}=U_{out, n.}.$
+
+\subsubsection{LVR1}
+
+Using the definition \ref{eq:RegLoad1} returns
+
+$$\text{RegLoad}=\frac{\Delta U_{out}}{\Delta I_{out}}=\frac{5.60-5.54}{30}=0.002\ [\Omega]$$
+
+With \ref{eq:RegLoad2},
+
+$$\text{RegLoad}=\frac{\frac{\Delta U_{out}}{U_{out}}}{\Delta I_{out}}\cdot100\%=\frac{\frac{5.60-5.54}{5.57}}{30}=0.03\%\ [mA^{-1}]$$
+
+And \ref{eq:RegLoad3},
+
+$$\text{RegLoad}=\frac{\Delta U_{out}}{U_{out}}\cdot100\%=\frac{5.60-5.54}{5.57}=1.07\%$$.
+
+\subsubsection{LVR2}
+
+Using the definition \ref{eq:RegLoad1} returns
+
+$$\text{RegLoad}=\frac{\Delta U_{out}}{\Delta I_{out}}=\frac{5.44-5.34}{30}=0.003\ [\Omega]$$
+
+With \ref{eq:RegLoad2},
+
+$$\text{RegLoad}=\frac{\frac{\Delta U_{out}}{U_{out}}}{\Delta I_{out}}\cdot100\%=\frac{\frac{5.44-5.34}{5.5}}{30}=0.06\%\ [mA^{-1}]$$
+
+And \ref{eq:RegLoad3},
+
+$$\text{RegLoad}=\frac{\Delta U_{out}}{U_{out}}\cdot100\%=\frac{5.44-5.34}{5.5}=1.82\%$$.
+
+\subsubsection{LVR3}
+
+Using the definition \ref{eq:RegLoad1} returns
+
+$$\text{RegLoad}=\frac{\Delta U_{out}}{\Delta I_{out}}=\frac{5.05-5.01}{300}\approx0\ [\Omega]$$
+
+With \ref{eq:RegLoad2},
+
+$$\text{RegLoad}=\frac{\frac{\Delta U_{out}}{U_{out}}}{\Delta I_{out}}\cdot100\%=\frac{\frac{5.05-5.01}{5.05}}{300}\approx0\%\ [mA^{-1}]$$
+
+And \ref{eq:RegLoad3},
+
+$$\text{RegLoad}=\frac{\Delta U_{out}}{U_{out}}\cdot100\%=\frac{5.05-5.01}{5.05}=0.79\%$$.
+
+\subsection{Ripple Rejection Ratio}
+
+The Ripple Rejection Ratio (RR) can be thus calculated:
+
+$$\text{RR}=20\log\frac{U_{in}}{U_{out}}$$
+
+Which yields the following results for LVRs 1, 2, and 5 respectively:
+
+\begin{align}
+\text{RR}_{LVR1}&=20\log\frac{U_{in}}{U_{out}}=20\log\frac{2.14}{0.0426}=1.7 \\
+\text{RR}_{LVR2}&=20\log\frac{U_{in}}{U_{out}}=20\log\frac{2.24}{0.01224}=2.26 \\
+\text{RR}_{LVR5}&=20\log\frac{U_{in}}{U_{out}}=20\log\frac{2.24}{0.001}=3.35
+\end{align}
 
 \end{document}
