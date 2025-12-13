@@ -233,4 +233,10 @@ Which yields the following results for LVRs 1, 2, and 5 respectively:
 \text{RR}_{LVR5}&=20\log\frac{U_{in}}{U_{out}}=20\log\frac{2.24}{0.001}=3.35
 \end{align}
 
+\section{Conclusion}
+
+The IC voltage regulator LVR5 (LM7805) demonstrated the best overall performance, confirming the benefits of integrated circuit design. It achieved nearly ideal line regulation ($\text{RegLine} \approx \mathbf{0\%}$) and a very low load regulation error, indicating excellent stability against changes in both input voltage and load current. Most notably, LVR5 had the highest ripple rejection ratio ($\text{RR} \approx \mathbf{67\ \text{dB}}$), proving its superior efficiency in suppressing AC ripple compared to the discrete solutions.
+
+The two discrete regulators showed the predicted performance progression. \textbf{LVR2} (Zener with current source) performed significantly better than the simple Zener regulator \textbf{LVR1}, particularly under changing load conditions, due to the stabilizing effect of the added current source. This experiment clearly confirms that the \textbf{structural complexity} of the regulator strongly correlates with its ability to maintain a stable output voltage across varying operating conditions, with integrated solutions offering superior stability and noise suppression compared to discrete counterparts.
+
 \end{document}
